@@ -4,15 +4,6 @@
   * [LocalStackとは](#localstackとは)
   * [インストール方法](#インストール方法)
     * [手順](#手順)
-      * [今回の環境](#今回の環境)
-      * [1. docker composeのインストール](#1-docker-composeのインストール-)
-      * [2. docker composeファイルの作成](#2-docker-composeファイルの作成)
-      * [3. LocalStack起動](#3-localstack起動)
-      * [4. LocalStackにアクセスする](#4-localstackにアクセスする)
-      * [5. pythonのバージョン確認＆pipバージョン確認](#5-pythonのバージョン確認pipバージョン確認)
-      * [6. awscliのバージョン確認](#6-awscliのバージョン確認)
-      * [7. awscli-localのインストール](#7-awscli-localのインストール)
-      * [8. LocalStackのサービス確認  （今回はDynamoDB）](#8-localstackのサービス確認-今回はdynamodb)
   * [LocalStackでのAWSのリソース構築](#localstackでのawsのリソース構築)
     * [S3バケット作成と確認](#s3バケット作成と確認)
     * [DynamoDBのテーブル作成](#dynamodbのテーブル作成)
@@ -31,14 +22,14 @@ LocalStackにはcommunity版とPro版が存在して、Pro版は有料である�
 - https://qiita.com/ryamate/items/fb9bd0bed550cdbe118b
 
 ### 手順
-#### 今回の環境
+**今回の環境**
 ```angular2html
 - OS: MacOS Sequoia 15.7.1
 - LauncherDesktop: 1.19.3
 ```
-#### 1. docker composeのインストール  
+1. docker composeのインストール  
 割愛
-#### 2. docker composeファイルの作成
+2. docker composeファイルの作成  
 以下のdocker-compose.ymlを作成する。  
 参考：https://docs.localstack.cloud/aws/getting-started/installation/#starting-localstack-with-docker-compose
 
@@ -57,7 +48,7 @@ services:
       - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
 ```
-#### 3. LocalStack起動
+3. LocalStack起動  
 ```zsh
 % docker compose up
 [+] Running 2/2
@@ -71,12 +62,12 @@ localstack-main  | LocalStack build git hash: 30111e0c9
 localstack-main  |
 localstack-main  | Ready.
 ```
-#### 4. LocalStackにアクセスする
+4. LocalStackにアクセスする
 ```zsh
 % docker compose exec localstack /bin/bash
 root@8a49b386aa39:/opt/code/localstack#
 ```
-#### 5. pythonのバージョン確認＆pipバージョン確認
+5. pythonのバージョン確認＆pipバージョン確認
 ```bash
 root@8a49b386aa39:/opt/code/localstack#
 root@8a49b386aa39:/opt/code/localstack# python -V
@@ -85,7 +76,7 @@ root@8a49b386aa39:/opt/code/localstack# pip -V
 pip 25.2 from /usr/local/lib/python3.13/site-packages/pip (python 3.13)
 root@8a49b386aa39:/opt/code/localstack# 
 ```
-#### 6. awscliのバージョン確認
+6. awscliのバージョン確認
 ```bash
 root@8a49b386aa39:/opt/code/localstack# aws --version
 aws-cli/1.42.33 Python/3.13.7 Linux/6.6.93-0-virt botocore/1.40.33
@@ -96,7 +87,7 @@ awscli             1.42.33
 awscli-local       0.22.2
 root@8a49b386aa39:/opt/code/localstack#
 ```
-#### 7. awscli-localのインストール
+7. awscli-localのインストール
 awscli-localはLocalstack用のawscliラッパーで、awsコマンドをawslocalコマンドに置き換えるだけで、Localstackに対してコマンドを実行できるようになる。  
 ```bash
 root@8a49b386aa39:/opt/code/localstack# pip show awscli-local
@@ -112,7 +103,7 @@ Requires: localstack-client
 Required-by:
 root@8a49b386aa39:/opt/code/localstack#
 ```
-#### 8. LocalStackのサービス確認  （今回はDynamoDB）
+8. LocalStackのサービス確認  （今回はDynamoDB）
 ```bash
 root@8a49b386aa39:/opt/code/localstack# awslocal dynamodb list-tables
 {

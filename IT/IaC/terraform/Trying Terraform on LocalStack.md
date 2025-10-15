@@ -73,11 +73,15 @@ terraform fmt && terraform validate
 terraform plan -out=plan.tfplan
 terraform apply plan.tfplan
 ```
+5. 作成したS3バケットの確認
+```bash
+awslocal s3 ls
+```
 ## 注意点
 無料版のLocalStackは永続サポートされていないので一度、docker compose downしてしまうと、作成したリソースは消えてしまう。
 永続サポートしたい場合はPro版を購入する。
 ## 実行ログ
-### Terraform コマンド実行
+### Terraform コマンド実行とS3バケットの確認
 ```bash
 root@8a49b386aa39:/opt/code/localstack/terraform_work/01#
 root@8a49b386aa39:/opt/code/localstack/terraform_work/01# terraform init -upgrade

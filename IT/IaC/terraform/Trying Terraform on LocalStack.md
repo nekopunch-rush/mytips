@@ -165,6 +165,9 @@ root@8a49b386aa39:/opt/code/localstack/terraform_work/01# awslocal s3 ls
 2025-10-15 17:58:30 my-test-bucket
 2025-10-15 12:15:11 test2-bucket
 root@8a49b386aa39:/opt/code/localstack/terraform_work/01#
+```
+### terraform.tfstateの確認
+```bash
 root@8a49b386aa39:/opt/code/localstack/terraform_work/01# cat ../terraform.tfstate
 {
   "version": 4,
@@ -249,8 +252,9 @@ root@8a49b386aa39:/opt/code/localstack/terraform_work/01# cat ../terraform.tfsta
   "check_results": null
 }
 root@8a49b386aa39:/opt/code/localstack/terraform_work/01#
-
-## 変更ないと以下のように出力される。
+```
+変更ないと以下のように出力される。
+```bash
 root@8a49b386aa39:/opt/code/localstack/terraform_work/01# terraform plan -out=plan_after.tfplan
 aws_s3_bucket.example: Refreshing state... [id=my-test-bucket]
 

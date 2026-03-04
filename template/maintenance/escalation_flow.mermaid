@@ -1,0 +1,47 @@
+sequenceDiagram
+    actor Monitor as 監視システム
+    participant Local as 現地監視
+    participant Dev as 開発担当
+    participant VendorA as 委託A
+    participant ApiA as 外部API A
+    participant ApiB as 外部API B
+
+    rect rgb(255, 235, 235)
+        Note over Monitor,Local: 障害検知
+        Monitor->>Local: ⚠️ WARN / ❌ ERROR メッセージ発生
+    end
+
+    rect rgb(255, 245, 220)
+        Note over Local,VendorA: エスカレーション
+        Local->>Dev: 障害発生を連絡
+        Dev->>VendorA: 対応依頼・連絡
+    end
+
+    rect rgb(220, 240, 255)
+        Note over VendorA: 委託A 内部で障害解析実施
+
+        opt 外部API A との連携が必要な場合
+            VendorA->>ApiA: 情報取得 / 確認
+            ApiA-->>VendorA: レスポンス
+        end
+
+        opt 外部API B との連携が必要な場合
+            VendorA->>ApiB: 情報取得 / 確認
+            ApiB-->>VendorA: レスポンス
+        end
+    end
+
+    rect rgb(220, 255, 220)
+        Note over VendorA,Dev: 状況報告
+        VendorA->>Dev: 障害解析結果を状況報告
+    end
+
+    rect rgb(240, 220, 255)
+        Note over VendorA,Dev: アプリ再実行（可能な場合）
+        alt 再実行が可能な場合
+            VendorA->>VendorA: アプリを再実行
+            VendorA->>Dev: 実行結果を報告
+        else 再実行が不可能な場合
+            Note over VendorA,Dev: 再実行不可のため対応継続
+        end
+    end

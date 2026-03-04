@@ -1,0 +1,72 @@
+@startuml
+title エスカレーションフロー
+
+skinparam backgroundColor #FAFAFA
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 10
+
+skinparam participant {
+  BackgroundColor #1E3A5F
+  FontColor #FFFFFF
+  BorderColor #0D2137
+  FontSize 13
+}
+
+skinparam note {
+  BackgroundColor #FFF8DC
+  BorderColor #DAA520
+  FontSize 11
+}
+
+actor "監視システム" as Monitor
+participant "現地監視" as Local
+participant "開発担当" as Dev
+participant "委託A" as VendorA
+participant "外部API A" as ApiA
+participant "外部API B" as ApiB
+
+== 障害検知 ==
+
+Monitor -> Local : ⚠️ WARN / ❌ ERROR メッセージ発生
+activate Local
+
+== エスカレーション ==
+
+Local -> Dev : 障害発生を連絡
+activate Dev
+
+Dev -> VendorA : 対応依頼・連絡
+activate VendorA
+
+== 障害解析 ==
+
+note over VendorA : 委託A 内部で障害解析実施
+
+alt 外部API A との連携が必要な場合
+  VendorA <-> ApiA : 情報取得 / 確認
+end
+
+alt 外部API B との連携が必要な場合
+  VendorA <-> ApiB : 情報取得 / 確認
+end
+
+== 状況報告 ==
+
+VendorA -> Dev : 障害解析結果を状況報告
+note right of Dev : 報告内容を受領・確認
+
+== アプリ再実行（可能な場合） ==
+
+alt 再実行が可能な場合
+  VendorA -> VendorA : アプリを再実行
+  note right of VendorA : 再実行処理
+  VendorA -> Dev : 実行結果を報告
+else 再実行が不可能な場合
+  note over VendorA, Dev : 再実行不可のため対応継続
+end
+
+deactivate VendorA
+deactivate Dev
+deactivate Local
+
+@enduml

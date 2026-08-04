@@ -1,0 +1,18 @@
+name: memory_util
+version: 1.0.0
+description: "Customized Memory Util Provider"
+kind: standalone
+
+provides_tools:
+  - memory_util_store
+  - memory_util_recommend
+  - memory_util_feedback
+  - memory_util_list
+  - memory_util_search
+  - memory_util_update
+  - memory_util_remove
+
+config:
+  db_path: "$HERMES_HOME/memory/fact.db"
+  auto_extract: false
+  default_trust: 0.5

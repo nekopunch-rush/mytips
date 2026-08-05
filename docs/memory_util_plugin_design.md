@@ -89,7 +89,7 @@ memory_util Plugin の search_facts() 呼び出し
 ### 3.2 メモリ検索フロー
 
 ```
-ユーザークエリ（例: 「トミが聴く音楽のジャンルは？」）
+ユーザークエリ（例: 「トムが聴く音楽のジャンルは？」）
     │
     ▼
 memory_util Plugin の recommend_by_category() 呼び出し
